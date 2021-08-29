@@ -12,6 +12,9 @@
 /build
 
 # misc
+.env
+.netlify
+.build
 .DS_Store
 .env.local
 .env.development.local

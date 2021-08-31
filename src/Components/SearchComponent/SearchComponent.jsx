@@ -1,15 +1,20 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { toast } from 'react-toastify';
 import SearchIcon from '../../Images/search.png';
+import { useHistory } from "react-router-dom";
 export default function SearchComponent() {
+    const history = useHistory();
     const [value, setValue] = useState('');
     const handleSubmit = (e) => {
         e.preventDefault();
         setValue('');
+        if(value.length > 0)history.push(`/books?search=${value}`);
+        else toast.error("Search Field Cannot be Empty");
     }
     return (
         <Container onSubmit = {handleSubmit} >
-            <SearchInput value = {value} onChange = {(e) => setValue(e.target.value)} type = 'text' placeholder = 'Find Books here' />
+            <SearchInput value = {value} onChange = {(e) => setValue(e.target.value.substring(0, 50))} type = 'text' placeholder = 'Search Books by Title, Author or Subject' />
             <Finder onClick = {handleSubmit} >
                 <img src = {SearchIcon} alt = 'err' />
             </Finder>

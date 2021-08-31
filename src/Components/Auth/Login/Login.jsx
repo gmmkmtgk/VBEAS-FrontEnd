@@ -40,8 +40,8 @@ export default function Login() {
     useEffect(() => {
         let token = localStorage.getItem('_qid');
         if( token ){
-            let data = jwt.decode(token, process.env.REACT_APP_JWT_SECRET);
-            if( data ) dispatch(setCurrentUser(data));
+            let data = jwt.decode(token, process.env.REACT_APP_JWT_SECRET); // eslint-disable-next-line
+            if( data ) dispatch(setCurrentUser(data)); // eslint-disable-next-line
             else toast.error("Session Expired Login again")
         }
     }, []);

@@ -6,7 +6,9 @@ import { toast } from 'react-toastify';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 export default function User() {
+    const history = useHistory();
     const user = useSelector(state => state.user);
     const dispatch = useDispatch();
     const [show, setShow] = useState(false);
@@ -16,8 +18,9 @@ export default function User() {
     }
     return (
         <Container>
-            <CartButton>
+            <CartButton onClick = {() => history.push('/cart')}  >
                 <ShoppingBasketIcon color = 'primary' />
+                <SmallDot></SmallDot>
             </CartButton>
             <ProfileContainer onMouseEnter = {() => setShow(true)} onMouseLeave = {() => setShow(false)} >
                 <InnerContainer>
@@ -49,6 +52,7 @@ const ArrowDown = styled.div`
 const CartButton = styled.div`
     color: 'white';
     margin-right: 20px;
+    position: relative;
 `;
 
 const DropDownContainer = styled.div`
@@ -84,4 +88,19 @@ const InnerContainer = styled.div`
     >h2{
         margin-left: 10px;
     }
+`;
+
+const SmallDot = styled.div`
+    position: absolute;
+    width:auto;
+    min-width: 10px;
+    height: auto;
+    min-height: 10px;
+    border-radius: 100%;
+    background-color: red;
+    bottom: 2px;
+    right: 0px;
+    font-size: 10px;
+    color: white;
+    text-align:center
 `;

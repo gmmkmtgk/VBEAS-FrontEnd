@@ -1,4 +1,6 @@
 import { combineReducers } from "redux";
+import bookReducer from "./book/book.reducer";
+import cartReducer from "./cart/cart.reducer";
 // import alertReducer from "./alert/alert.reducer";
 import stallsReducer from "./stalls/stalls.reducer";
 // import { persistReducer } from "redux-persist";
@@ -19,7 +21,8 @@ import userReducer from "./user/user.reducer";
 const rootReducer = combineReducers({
     user: userReducer,
     stalls: stallsReducer,
-    // cart: cartReducer,
+    book: bookReducer,
+    cart: cartReducer,
     // directory: directoryReducer,
     // shop: shopReducer,
 });

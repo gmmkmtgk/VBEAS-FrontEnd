@@ -34,6 +34,7 @@ export default function Login() {
         else toast.error("Login Failed, Please Use LNMIIT ID only")
     }
     const handleFailure = (res) => {
+        console.log(res)
         if( res.error === "popup_closed_by_user" ) toast.error("Login Failed");
         else toast.error("Login Failed !, Retry")
     }

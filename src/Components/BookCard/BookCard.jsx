@@ -16,7 +16,7 @@ export default function BookCard(props) {
             history.push(`book/${id}`)
         }
     }
-    const {image, subject, title, author, price, expected_price, discount, id} = props;
+    const {image, subject, title, author, price, expected_price, discount, id, medium} = props;
     return (
         <Container onClick = {handleClick} >
             <ImageContainer>
@@ -32,11 +32,13 @@ export default function BookCard(props) {
                     <Discount>{discount}% off</Discount>
                 </PriceContainer>
             </BookDetails>
+            {medium === 'electronic' && (<EbookValue>E-Book</EbookValue>)}
         </Container>
     );
 }
 
 const Container = styled.div`
+    position: relative;
     /* box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3); */
     padding: 2px 2px;
     border-radius: 10px;
@@ -110,4 +112,19 @@ const Discount = styled.span`
     color: orange;
     font-weight: bold;
     font-size: 16px;
+`;
+
+
+const EbookValue = styled.p`
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-family: var(--font-text);
+    border-radius: 5px;
+    padding: 1px 10px;
+    border: 1px solid orange;
+    color: orange;
+    background-color: blueviolet;
+    color: white;
+    z-index:100;
 `;

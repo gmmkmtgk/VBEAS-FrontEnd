@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { setBook } from "../../redux/book/book.actions";
 
 export default function BookCard(props) {
-    const { height , width } = useWindowDimensions();
+    const { width } = useWindowDimensions();
     const history = useHistory();
     const dispatch = useDispatch();
     const handleClick = () => {

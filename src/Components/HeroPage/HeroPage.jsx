@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import HeroImage from "../../Images/heroImage.jpeg";
+// import HeroImage from "../../Images/heroImage.jpeg";
 import BgBack from '../../Images/bg_back.jpeg';
 import { device } from "../../devices";
 export default function HeroPage() {

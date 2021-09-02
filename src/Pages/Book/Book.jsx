@@ -44,7 +44,6 @@ export default function Book() {
             return toast.info("Thanks for recommending the Book, Library authority will get back to you soon.")
         }
     }
-    console.log(book);
     if( !loading ) <Loading />
     return (
         <Container>

@@ -8,7 +8,7 @@ import { device } from "../../devices";
 import DrawerComponent from "../DrawerComponent/DrawerComponent";
 export default function Header() {
     const history = useHistory();
-    const { height, width } = useWindowDimensions();
+    const { width } = useWindowDimensions();
     return (
         <Wrapper>
         <Container>

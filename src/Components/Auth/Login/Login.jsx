@@ -6,6 +6,13 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {setCurrentUser} from "../../../redux/user/user.actions";
 import User from "../User/User";
+
+const findProfessor = (email) => {
+    // if (email === '20ume034@lnmiit.ac.in') return true;
+    if (email.match("^[a-zA-Z0-9]*$")) return false;
+    else return true;
+}
+
 const CustomButton = (props) => {
     return(
         <Container>
@@ -22,7 +29,7 @@ export default function Login() {
             email: res.profileObj.email,
             first_name: res.profileObj.givenName,
             last_name: res.profileObj.familyName,
-            full_name: res.profileObj.givenName + " "+res.profileObj.familyName
+            full_name: res.profileObj.givenName + " "+res.profileObj.familyName,
         };
         const domain = data.email.split("@");
         if(domain[1] === 'lnmiit.ac.in') {

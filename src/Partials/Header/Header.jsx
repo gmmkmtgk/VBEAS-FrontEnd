@@ -6,6 +6,7 @@ import Logo from "../../Images/logo_dark.png";
 import useWindowDimensions from "../../Hooks/useDimensions";
 import { device } from "../../devices";
 import DrawerComponent from "../DrawerComponent/DrawerComponent";
+import { Link } from "react-scroll";
 export default function Header() {
     const history = useHistory();
     const { width } = useWindowDimensions();
@@ -16,7 +17,7 @@ export default function Header() {
                 <img src={Logo} alt='logo' />
             </LogoContainer>
             <InfoContainer>
-                <p>Stalls</p>
+                <Link to='stalls' spy={true} smooth={true} ><p>Stalls</p></Link>
                 <p>Instructions</p>
             </InfoContainer>
             { width > 1010 && <SearchComponent />}

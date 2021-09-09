@@ -1,12 +1,13 @@
 import styled from "styled-components";
 // import HeroImage from "../../Images/heroImage.jpeg";
-import BgBack from '../../Images/bg_back.jpeg';
-import { device } from "../../devices";
+import BackImage from '../../Images/two.jpeg';
+import { Link } from "react-scroll";
+import DiscountImage from '../../Images/25.png';
 export default function HeroPage() {
     return (
         <Container>
             <ImageContainer>
-                <img src={BgBack} alt='err' />
+                <img src={BackImage} alt='err' />
             </ImageContainer>
             <HeroCard>
                 <Title>
@@ -19,22 +20,28 @@ export default function HeroPage() {
                 </HeadingContainer>
                 <AboutContainer>
                     <p>
-                        LNMIIT Central Library invites you all to a "Virtual
-                        Book Exhibition and Selection Portal." Here you will
+                        LNMIIT Central Library invites you to a <br/> "<b>Virtual
+                        Book Exhibition and Selection Portal</b>"<br /> Here, you will
                         find thousands of books on a wide range of subjects
                         covering Computer Science, CommunicationTechnology,
-                        Electronics and Communication, Mechanical Engineering,
-                        Physics, Mathematics, Humanities and Social Sciences,
-                        Literature, Biography, Fiction, Dictionaries,
+                        Electronics & Communication, Mechanical Engineering,
+                        Physics, Mathematics, Humanities & Social Sciences,
+                        Literature, Biographies, Fiction, Dictionaries,
                         Encyclopedias, and many more !
                     </p>
                     <br />
                 </AboutContainer>
                 <ButtonCluster>
-                    <CustomButton seco={true}>Explore Stalls</CustomButton>
+                    <CustomButton seco={true}>
+                        <Link to = 'stalls' spy={true} smooth={true} >Explore Stalls</Link>
+                    </CustomButton>
                     <CustomButton seco={true}>How to Use ?</CustomButton>
                 </ButtonCluster>
             </HeroCard>
+            <DiscountContainer>
+                <img src = {DiscountImage} alt = '25off' />
+                <p>25 % <br /> Off</p>
+            </DiscountContainer>
         </Container>
     );
 }
@@ -45,6 +52,7 @@ const Container = styled.div`
     justify-content: center;
     flex-direction: column;
     color: white;
+    position: relative;
 `;
 const ImageContainer = styled.div`
     width: 100vw;
@@ -57,27 +65,16 @@ const ImageContainer = styled.div`
 `;
 
 const HeroCard = styled.div`
+    position: absolute;
+    top: 0px;
     display: flex;
     flex-direction: column;
     text-align: center;
-    width: 90vw;
-    margin-top: -800px;
+    width: 100vw;
     margin-bottom: 100px;
     border-radius: 10px;
     padding: 10px 20px;
-    backdrop-filter: blur(3px);
     border-radius: 18px;
-    @media ${device.laptop}{
-        margin-top: -700px;
-    }
-    @media ${device.tablet}{
-        margin-top: -650px;
-    }
-    @media screen and (max-width: 500px) {
-        padding: 40px 10px;
-        width: 90vw;
-        margin-top: -500px;
-    }
 `;
 
 const ButtonCluster = styled.div``;
@@ -139,6 +136,27 @@ const HeadingContainer = styled.div`
         font-size: 30px;
     }
 `;
+
+const DiscountContainer = styled.div`
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    top: 30px;
+    right: 100px;
+    >img{
+        width: 100%;
+        height: 100%;
+    }
+    >p{
+        text-align:center;
+        position: absolute;
+        top: 25%;
+        left: 22%;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+`;
+
 const AboutContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -147,7 +165,8 @@ const AboutContainer = styled.div`
         text-align: center;
         letter-spacing: 2px;
         font-size: 32px;
-        width: 90%;
+        width: 76%;
+        @media screen and (max-width)
     }
     > span {
         text-decoration: underline;
@@ -165,3 +184,4 @@ const AboutContainer = styled.div`
         }
     }
 `;
+

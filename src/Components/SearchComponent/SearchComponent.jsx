@@ -9,7 +9,7 @@ export default function SearchComponent() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setValue('');
-        if(value.length > 0)history.push(`/books?search=${value}`);
+        if(value.length > 0)history.push(`/books?q=${value}&page_number=1`);
         else toast.error("Search Field Cannot be Empty");
     }
     return (

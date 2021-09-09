@@ -15,6 +15,7 @@ export default function User() {
     const handleLogout = () => {
         dispatch(logOutUser());
         toast.success("Logout Success")
+        history.push('/');
     }
     return (
         <Container>

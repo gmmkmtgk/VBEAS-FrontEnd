@@ -87,15 +87,17 @@ export default function SliderComponent() {
         },
     ];
     return (
-        <Container>
-            <Slider {...settings}>
-                {Data?.map((item) => (
-                    <Slide>
-                        <img src={item.img} alt='err' />
-                    </Slide>
-                ))}
-            </Slider>
-        </Container>
+        <div id = 'stalls' >
+            <Container>
+                <Slider {...settings}>
+                    {Data?.map((item) => (
+                        <Slide>
+                            <img src={item.img} alt='err' />
+                        </Slide>
+                    ))}
+                </Slider>
+            </Container>
+        </div>
     );
 }
 

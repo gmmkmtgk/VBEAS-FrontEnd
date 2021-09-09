@@ -1,40 +1,25 @@
 import styled from "styled-components";
 import BookCard from "../BookCard/BookCard";
 import { Pagination } from "@material-ui/lab";
-import { useState } from "react";
-import { USER_PER_PAGE } from "../../Utils/constants";
 
-export default function BookWrapper({ data }) {
-    let totalPages = Math.ceil(data.length / USER_PER_PAGE);
-    const [page, setPage] = useState(1);
-
-    const startIndex = (page - 1) * USER_PER_PAGE;
-    const currentBooks = data.slice(startIndex, startIndex + USER_PER_PAGE);
+export default function BookWrapper({ data, page, totalPage, handlePage }) {
 
     const handlePagination = (event, page) => {
-        scrollToTop();
-        setPage(page);
+        handlePage(page);
     };
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-            /* you can also use 'auto' behaviour
-             in place of 'smooth' */
-        });
-    };
+    
 
     return (
         <>
             <BooksContainer>
-                {currentBooks?.map((item) => (
+                {data?.map((item) => (
                     <BookCard key={item.id} {...item} />
                 ))}
             </BooksContainer>
             <PaginationContainer>
                 <Pagination
                     size='large'
-                    count={totalPages}
+                    count={totalPage}
                     onChange={handlePagination}
                     variant='outlined'
                     color='primary'

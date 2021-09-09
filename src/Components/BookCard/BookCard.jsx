@@ -15,8 +15,9 @@ export default function BookCard(props) {
             dispatch(setBook(props));
             history.push(`book/${id}`)
         }
+        
     }
-    const {image, subject, title, author, price, expected_price, discount, id, medium} = props;
+    const {price_denomination, publisher, image, subject, title, author, price, expected_price, discount, id, medium} = props;
     return (
         <Container onClick = {handleClick} >
             <ImageContainer>
@@ -26,9 +27,12 @@ export default function BookCard(props) {
                 <p>{subject}</p>
                 <h2>{title.length > 42 ? title.substring(0, 40)+'...' : title}</h2>
                 <Author>{author}</Author>
+                <SellerName>
+                    { publisher?.length > 17 ? publisher.substring(0, 17) + '...' : publisher}
+                </SellerName>
                 <PriceContainer>
-                    <Price>&#x20B9;{Math.round(expected_price)}</Price>
-                    <Mrp>&#x20B9;{Math.round(price)}</Mrp>
+                    <Price>{price_denomination} {Math.round(expected_price)}</Price>
+                    <Mrp>{price_denomination} {Math.round(price)}</Mrp>
                     <Discount>{discount}% off</Discount>
                 </PriceContainer>
             </BookDetails>
@@ -127,4 +131,12 @@ const EbookValue = styled.p`
     background-color: blueviolet;
     color: white;
     z-index:100;
+`;
+
+const SellerName = styled.div`
+    margin-top: 5px;
+    font-size: 16px;
+    letter-spacing: 2px;
+    font-weight: 500;
+    color: blueviolet;
 `;

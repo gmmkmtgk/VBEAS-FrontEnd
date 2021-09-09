@@ -5,10 +5,12 @@ import { SERVER_LINK } from "../../Utils/constants";
 
 export default function StallsCard({name, logo, id}) {
     const history = useHistory();
+    const logoImage = `${SERVER_LINK}/media/${logo}`;
+    console.log(logoImage);
     return (
-        <Container onClick = {() => history.push(`/stalls/${id}`)} >
+        <Container onClick = {() => history.push(`/stalls?qid=${id}&page_number=1`)} >
             <ImageContainer>
-                <ImageValue src = {`${SERVER_LINK}/media/${logo}`} alt = 'BookSellerLogo' />
+                <ImageValue src = {logoImage} alt = 'BookSellerLogo' />
             </ImageContainer>
             <CardDetails>
                 <h2>{name}</h2>                
@@ -33,8 +35,7 @@ const Container = styled.div`
         max-height: 350px;
     }
     :hover{
-        margin-top: -15px;
-        box-shadow: 0px 8px 36px 2px rgba(25, 25, 25, 0.3);
+        box-shadow: 0px 8px 36px 2px rgba(25, 25, 25, 0.6);
     }
 `;
 

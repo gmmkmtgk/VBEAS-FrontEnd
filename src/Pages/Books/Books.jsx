@@ -3,64 +3,123 @@ import styled from "styled-components";
 import api from "../../api/api";
 import Loading from "../../Components/Loading/Loading";
 import useQuery from "../../Hooks/useQuery";
-import queryCleaner from "../../Utils/queyCleaner";
 import Filter from "../../Images/filter.png";
 import { toast } from "react-toastify";
 import BookWrapper from "../../Components/BookWrapper/BookWrapper";
+import { useHistory } from "react-router";
+import queryString from "../../Utils/queryString";
+import FilterModal from "../../Components/FilterModal/FilterModal";
 export default function Books() {
-    const [loading, setLoading] = useState(false);
-    const [data, setData] = useState([]);
+    const history = useHistory();
+    const [books, setBooks] = useState([]);
+    const [count, setCount] = useState(0);
+    const [loading, setLoading] = useState(true);
+    const [totalPage, setTotalPage] = useState(0);
+    const [page, setPage] = useState(0);
+    const [open, setOpen] = useState(false);
     let query = useQuery();
-    let search = query.get("search");
-    let searchArr = queryCleaner(search);
+    let q = query.get("q");
+    let page_number = query.get("page_number");
+    let filter_by_subject = query.get("filter_by_subject");
+    let sort_by = query.get("sort_by");
+    let order_by = query.get("order_by");
 
+    let context = {
+        q: q,
+        page_number: page_number,
+    };
+    if (filter_by_subject !== null) {
+        context = {
+            ...context,
+            filter_by_subject: filter_by_subject,
+        };
+    }
+
+    if (sort_by !== null && order_by !== null) {
+        context = {
+            ...context,
+            sort_by: sort_by,
+            order_by: order_by,
+        };
+    }
     useEffect(() => {
-        setLoading(true);
         const fetchBooks = async () => {
             await api
-                .post("/search/", searchArr)
+                .post("/books/", context)
                 .then((res) => {
                     setLoading(false);
-                    const data = res.data.data;
-                    setData(data);
+                    const data = res.data;
+                    setCount(data.count);
+                    setBooks(data.data);
+                    setTotalPage(data.total_page);
+                    setPage(page_number);
                 })
                 .catch((err) => {
-                    toast.error('Somthing went Wrong.')
+                    toast.error(
+                        "Something Went Wrong, Maybe the Server is down."
+                    );
                 });
         };
         fetchBooks();
-    }, [search]);
+    }, [page, q, filter_by_subject, sort_by, order_by]);
+
+    const handlePage = (page) => {
+        setPage(page);
+        context = {
+            ...context,
+            page_number: page,
+        };
+        const query = queryString(context);
+        history.push({
+            pathname: "/books",
+            search: "?" + query,
+        });
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     if (loading) return <Loading />;
     return (
         <Container>
             <TopContainer>
                 <HeaderContainer>
-                    <h2>{`Showing Results for : "${searchArr[0].value}"`}</h2>
-                    <p>Total {data?.length} Books Found</p>
+                    <h2>{`Showing Results for : ${q} `}</h2>
+                    {count > 0 ? (<p>Total {count} Books Found</p>) : <p>Total 0 Books Found</p>}
                 </HeaderContainer>
-                <FilterButton>
+                <FilterButton onClick={() => setOpen(true)}>
                     <FilterContainer>
                         <img src={Filter} alt='err' />
                     </FilterContainer>
                     <p>Advanced Filters</p>
                 </FilterButton>
             </TopContainer>
-            {data.length > 0 ? (
-                <BookWrapper data = {data} />
+            {count > 0 ? (
+                <BookWrapper
+                    page={page}
+                    totalPage={totalPage}
+                    handlePage={handlePage}
+                    data={books}
+                />
             ) : (
                 <BooksContainer>
-                    <NothingFound>
-                        Nothing Found
-                    </NothingFound>
+                    <NothingFound>Nothing Found</NothingFound>
                 </BooksContainer>
             )}
+            <FilterModal
+                redirectUri='books'
+                context={context}
+                open={open}
+                handleClose={handleClose}
+            />
         </Container>
     );
 }
 
 const Container = styled.div`
     padding: 2% 5%;
-    @media screen and (max-width:1250px){
+    @media screen and (max-width: 1250px) {
         padding: 2% 2%;
     }
 `;
@@ -105,18 +164,18 @@ const BooksContainer = styled.div`
     grid-gap: 50px;
     margin: 50px 0px 0px 0px;
     transition: all 0.3s ease-in-out;
-    @media screen and (max-width:560px){
+    @media screen and (max-width: 560px) {
         padding: 0% 5%;
     }
-    @media screen and (max-width:1170px){
+    @media screen and (max-width: 1170px) {
         grid-template-columns: 1fr 1fr 1fr;
     }
 
-    @media screen and (max-width:870px){
+    @media screen and (max-width: 870px) {
         grid-template-columns: 1fr 1fr;
     }
 
-    @media screen and (max-width:560px){
+    @media screen and (max-width: 560px) {
         grid-template-columns: 1fr;
     }
 `;

@@ -1,33 +1,50 @@
 import styled from "styled-components";
-import Logo from '../../Images/logo_dark.png'
-import {device} from '../../devices';
+import Logo from "../../Images/logo_dark.png";
+import { device } from "../../devices";
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 export default function Footer() {
+    const history = useHistory();
+    const user = useSelector((state) => state.user);
     return (
         <Container>
             <ImageContainer>
-                <img src = {Logo} alt = 'logo' />
+                <img src={Logo} alt='logo' />
             </ImageContainer>
             <LinksContainer>
-                <Title>
-                    <p>Resources</p>
-                    <DataContainer>
-                        <p>Publisher / Sellers</p>
-                        <p>Book Collection</p>
-                    </DataContainer>
-                </Title>
+                {user?.is_admin && (
+                    <Title>
+                        <p>Staff</p>
+
+                        <DataContainer>
+                            <p onClick={() => history.push("/admin")}>
+                                Admin Panel
+                            </p>
+                        </DataContainer>
+                    </Title>
+                )}
 
                 <Title>
                     <p>Contact Us</p>
                     <DataContainer>
-                        <p>Visit: <a style = {{textDecoration:"underline", color:"blue"}} href = 'https://lnmiit.ac.in' >LNMIIT</a></p>
+                        <p>
+                            Visit:{" "}
+                            <a
+                                style={{
+                                    textDecoration: "underline",
+                                    color: "blue",
+                                }}
+                                href='https://lnmiit.ac.in'>
+                                LNMIIT
+                            </a>
+                        </p>
                         <p>+91 - 9999999999</p>
                         <p>Test@test.com</p>
                     </DataContainer>
                 </Title>
-
             </LinksContainer>
         </Container>
-    )
+    );
 }
 
 const Container = styled.div`
@@ -38,17 +55,17 @@ const Container = styled.div`
     flex-wrap: wrap;
     color: whitesmoke;
     justify-content: space-between;
-    @media ${device.tablet}{
+    @media ${device.tablet} {
         justify-content: center;
     }
 `;
 
 const ImageContainer = styled.div`
     width: 250px;
-    >img{
+    > img {
         width: 100%;
     }
-    @media ${device.tablet}{
+    @media ${device.tablet} {
         margin-bottom: 30px;
     }
 `;
@@ -58,12 +75,11 @@ const LinksContainer = styled.div`
     flex-wrap: wrap;
 `;
 
-
 const Title = styled.div`
     margin: 3px 50px;
     cursor: pointer;
     margin-bottom: 40px;
-    >p{
+    > p {
         font-size: 20px;
         font-weight: bold;
         font-family: var(--font-main);
@@ -71,11 +87,9 @@ const Title = styled.div`
     }
 `;
 const DataContainer = styled.div`
-    >p{
+    > p {
         font-weight: 400;
         font-size: 18px;
         margin-bottom: 10px;
     }
 `;
-
-

@@ -20,10 +20,12 @@ export default function Cart() {
             }
             api.post('/cart/', sendData)
             .then(res => {
-                const cartItem = res.data.data;
+                let cartItem = res.data.data;
                 dispatch(setCart(cartItem));
             })
-            .catch(err => toast.error("Something Went Wrong"))
+            .catch(err => {
+                return toast.error("Something Went Wrong")
+            })
         }
         if( user!==null ) fetchCart();
     }, [user])
@@ -36,8 +38,8 @@ export default function Cart() {
                 <TableRow>
                     <TableHead>Title</TableHead>
                     <TableHead>Author</TableHead>
+                    <TableHead>Subject</TableHead>
                     <TableHead>Seller</TableHead>
-                    <TableHead>Author</TableHead>
                     <TableHead>Price</TableHead>
                     <TableHead>View</TableHead>
                 </TableRow>
@@ -48,9 +50,9 @@ export default function Cart() {
                         <TableRow key = {item.id} >
                             <TableData>{item.title}</TableData>
                             <TableData>{item.author}</TableData>
+                            <TableData>{item.subject}</TableData>
                             <TableData>{item.seller_name}</TableData>
-                            <TableData>{item.author}</TableData>
-                            <TableData>{Math.round(item.price)}</TableData>
+                            <TableData> {item.price_denomination} {item.price}</TableData>
                             <TableData><ViewButton onClick = {() => handleClick(item.book_id)} >View</ViewButton></TableData>
                         </TableRow>
                         <br />

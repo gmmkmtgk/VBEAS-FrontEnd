@@ -38,8 +38,8 @@ export default function Footer() {
                                 LNMIIT
                             </a>
                         </p>
-                        <p>+91 - 9999999999</p>
-                        <p>Test@test.com</p>
+                        <p>+91 - 7737376070</p>
+                        <p>library@lnmiit.ac.in</p>
                     </DataContainer>
                 </Title>
             </LinksContainer>
